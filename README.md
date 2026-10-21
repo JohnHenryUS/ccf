@@ -2,7 +2,7 @@
 
 *Per-class, per-conversation data-flow control for conversational AI.*
 
-**The pitch:** AI providers give you one privacy choice: accept the terms or don't use the product. The Cognitive Commons Framework is a proposed open standard that replaces that binary with five handling tiers you assign per content class, a wire protocol that enforces them without the enforcer reading your content, and a portable profile you set up once and carry across providers. Creative Commons, but for data flow.
+**The pitch:** AI providers give you one privacy choice: accept the terms or don't use the product. The Cognitive Commons Framework is an open standard that replaces that binary with five handling tiers you assign per content class, a wire protocol that enforces them without the enforcer reading your content, and a portable profile you set up once and carry across providers. Creative Commons, but for data flow.
 
 **The five tiers:**
 
