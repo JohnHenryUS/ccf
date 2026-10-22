@@ -36,6 +36,18 @@ Your system keeps a record of what left, when, and to whom — exportable as mar
 
 DeepGravity stops NT content before it leaves the box. The flag is enforced on your own hardware, so the provider never has to refuse what it never receives. The framework does not require anyone else to do this. Providers can refuse-at-receipt and still be compliant. We do it first to set the example — and because it is the only direction with zero downstream risk.
 
+## Your profile tool
+
+The distro includes `files/profiler/profile.html` — the CCF Profile Manager: onboard, edit, review.
+
+How to invoke it:
+
+1. Copy `profile.html` to `Documents\CCF\profile.html`, next to your `profile.json`.
+2. Double-click it. No server, no install, works offline and air-gapped.
+3. Page 2 lists what UF / SO / CO / NK / NT mean inline, at the point you pick.
+
+Providers may serve this same file byte-identical from their own server: same bytes, both doors.
+
 ## License
 
 This document is released under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).

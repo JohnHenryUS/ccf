@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CCF Profile Manager: Onboard, Edit, Review</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:760px;margin:2em auto;padding:0 1em;color:#1a1a2e;line-height:1.45}
+h1{font-size:1.5em}h2{font-size:1.15em;margin-top:1.6em;border-top:1px solid #ddd;padding-top:1em}
+.page{display:none}.page.on{display:block}
+.row{display:flex;align-items:center;gap:.6em;margin:.5em 0;flex-wrap:wrap}
+.row label{min-width:200px;font-weight:600}
+select,textarea{padding:.35em;font-size:1em}
+button{padding:.55em 1.1em;margin:.5em .3em 0 0;cursor:pointer;font-size:1em}
+.nav{margin-top:1.5em}
+.hint{color:#555;font-size:.92em}
+.warn{background:#fff5f5;border:1px solid #c00;padding:.8em;margin:.8em 0}
+.safe{background:#eef6ee;border:1px solid #6a6;padding:.8em;margin:.8em 0}
+.unknown{border:1px solid #c00;padding:.6em;margin:.6em 0;background:#fff5f5}
+pre{background:#f4f4f4;padding:1em;overflow:auto;font-size:.85em;white-space:pre-wrap}
+.scen{font-style:italic;color:#333}
+.tos{font-size:1.05em}
+.savebox{background:#eef6ee;border:1px solid #6a6;padding:.8em;margin-top:1em}
+.badge{display:inline-block;padding:.15em .6em;border-radius:1em;font-size:.85em;margin-left:.5em}
+.b-impossible{background:#fdd;color:#900}.b-donut{background:#ffe9c4;color:#7a4d00}.b-live{background:#d8f3d8;color:#145214}
+</style>
+</head>
+<body>
+<h1>CCF Profile Manager</h1>
+<p class="hint">Save this file in <b>Documents\CCF\profile.html</b> next to <b>profile.json</b>. Double-click to open. No server, no install, works offline and air-gapped. Providers may serve this same file byte-identical from their own server: same bytes, both doors.</p>
+<div id="p0" class="page on">
+<h2>0. Read this first: not a terms-of-service</h2>
+<p class="tos">This isn't a "terms of service" agreement and you do NOT want to treat it like one. We've made it really simple and fast; for your best safety in the world of AI, you need to be sure you're really reading it, and not just scrolling to the bottom and clicking OK.</p>
+<p class="tos">This isn't a user agreement. This is your self-directed decisions about how AI is allowed to see you, know you, use your information, and interact with you, and what it's allowed to do with any of the information it gathers in the process.</p>
+<p>While it's always a good idea to occasionally audit your profile, which is really easy to do, it's also intended to be a "set it and forget it" system to the greatest extent possible without cutting corners on user safety.</p>
+<p class="hint">Flags on your end mean nothing unless the other end reads them. A green setting here is a claim, not a shield. DO NOT send what you can't afford to lose until you have confirmed that BOTH your equipment and the provider honor the Cognitive Commons Framework. The outlet doesn't care that you meant well.</p>
+<h2>Where are you right now?</h2>
+<div class="row"><label>I am using</label><select id="env">
+<option value="phone">A phone app (e.g. Claude app, first time, never used AI)</option>
+<option value="desktop">A desktop app (e.g. Claude desktop, Codium)</option>
+<option value="browser">A browser (extension, web page, this file)</option>
+<option value="local">Local inference I control</option>
+</select></div>
+<div id="envnote"></div>
+<h2>Do you have a profile already?</h2>
+<div class="row"><label>I have a profile.json</label><input type="file" id="load0" accept=".json,application/json"><button onclick="go(4)">Review it</button></div>
+<p class="hint">Load your saved profile.json to edit or review it. First time here? Skip this and continue below.</p>
+<div class="nav"><button onclick="go(1)">I'm new: build my profile</button></div>
+</div>
+<div id="p1" class="page">
+<h2>1. The honest default</h2>
+<p>When you use an AI, your words leave your machine and land on somebody else's computer. That computer can keep them, train on them, hand them over, get breached.</p>
+<p>Before you tell a cloud provider anything: <b>this isn't the place for your most intimate thoughts.</b> Frontier cloud is public-facing. Leaks are always possible. We'd rather tell you now than have you discover it later. Your settings here sit inside two harder constraints that always win: <b>the law</b> and <b>their rules</b>. Everything else is yours to draw.</p>
+<p>Five tiers, strictest last. Unknown flags mean most-private. That is the safe default, not a bug.</p>
+<div class="nav"><button onclick="go(0)">Back</button><button onclick="go(2)">Continue: your vault</button></div>
+</div>
+<div id="p2" class="page">
+<h2>2. Build your vault: scenarios, not checkboxes</h2>
+<p class="hint">You're not filling out a privacy form. You're designing your data vault: which rooms exist, who gets keys. Each class arrives as a scenario. You choose what happens next.</p>
+<div class="savebox" style="background:#f8f8ff;border-color:#99c;">
+<b>What the tiers mean — pick per row:</b><br>
+<b>UF — Use Freely:</b> Improve the service, inform advertising, the works.<br>
+<b>SO — Service Only:</b> Use it to make things better; keep it out of advertising.<br>
+<b>CO — Conversation only:</b> Help me right now, then forget it. This conversation only.<br>
+<b>NK — No Keep:</b> Seen to route, not retained. Transient processing only — the discard path is auditable.<br>
+<b>NT — No Transmission:</b> Never leaves your device. Local inference only. Strictest — unknown defaults here.<br>
+<span class="hint">Five tiers, strictest last. Unknown flags mean most-private.</span>
+</div>
+<div id="matrix"></div>
+<h2>How far should it go with what you tell it?</h2>
+<div class="row"><label>Conversation style</label><select id="quant"><option value="answer">Just answer</option><option value="practical">Offer practical help</option><option value="concierge">Full concierge</option></select></div>
+<div class="nav"><button onclick="go(1)">Back</button><button onclick="go(3)">Continue: the NT truth</button></div>
+</div>
+<div id="p3" class="page">
+<h2>3. The NT truth: no-transmission needs somewhere to live</h2>
+<div id="ntblock"></div>
+<h2>Local endpoints</h2>
+<p class="hint">List local model names, one per line. Even a small 8B classifier can sort and flag for NT: see the flag, hold the payload, never put it on the wire. That is your clamp working for you, not for lawyers.</p>
+<textarea id="eps" rows="3" cols="60" placeholder="e.g. dora-8b-gate (empty = no local inference)"></textarea><br>
+<button onclick="refreshNT()">Check my NT state</button>
+<div id="ntstate"></div>
+<h2>Export prefs</h2>
+<p class="hint">Exports happen on the last page: profile.json (canonical), plus .csv and .sql if you want them.</p>
+<div class="nav"><button onclick="go(2)">Back</button><button onclick="go(4)">Continue: save + review</button></div>
+</div>
+<div id="p4" class="page">
+<h2>4. Save + review: trust receipt</h2>
+<p>You do this properly once. What you set becomes your portable profile: new service, same you, they just ask "still this one?" Anything ambiguous defaults to your most private choice, so it's safe to get lazy after the serious setup. You can change any of this anytime.</p>
+<p class="hint">And the honest ceiling, stated once: no system can stop you from being the final egress point. Paste it into a web UI yourself and no architecture saves you. Nothing protects you from your own choice to send things in a text box.</p>
+<div class="row"><input type="file" id="load" accept=".json,application/json"><span class="hint">Load a saved profile.json to edit or review it.</span></div>
+<div class="row"><button onclick="doSave()">Download profile.json</button><button onclick="doSaveCSV()">Download profile.csv</button><button onclick="doSaveSQL()">Download profile.sql</button><button onclick="doCopy()">Copy canonical JSON</button></div>
+<div class="savebox">Save the download to <b>Documents\CCF\profile.json</b>. Same file re-opens here for edit. Levels: Cadet to Sovereign; curiosity gets rewarded, advanced controls unlock as you go.</div>
+<h2>Strangers: non-core rows</h2>
+<div id="unknowns"><p class="hint">Load a profile. Unknown IDs appear here with your two questions kept separate: tier going forward, accept this use now. Valid tag misapplied is still a violation; unknown tag correctly applied still holds until you decide.</p></div>
+<pre id="out"></pre>
+<div class="nav"><button onclick="go(3)">Back</button></div>
+</div>
+<script>
+"use strict";
+var CLASSES=[["identifiers","Identifiers","Your full name, numbers, accounts. The front door. Pick: a lender asks for your SSN to pre-qualify you."],["medical_l1","Medical L1","Basic queries, no disclosure. Pick: you ask what a normal resting heart rate is."],["medical_l2","Medical L2","Ongoing health, gym-form level. Pick: a coaching app wants your chronic condition to plan workouts."],["medical_l3","Medical L3","Bedroom, bathroom, mortality, mental health. The inner vault. Pick: 2 AM, you need to talk about the thing you tell nobody."],["financials","Financials","Balances to full picture. Pick: a budgeting bot wants your full unvarnished accounts."],["personal_chat","Default boundary","The default conversation status. If it's not explicitly labeled as above, it's labeled as this. <b style=\"color:#c00\">NOTE WELL:</b> NT here means nothing leaves your hardware, which may mean no cloud AI at all."]];
+var TIERS=["UF","SO","CO","NK","NT"];
+var TIERLBL={"UF":"UF \u2014 Use Freely","SO":"SO \u2014 Service Only","CO":"CO \u2014 Conversation only","NK":"NK \u2014 No Keep","NT":"NT \u2014 No Transmission"};
+var state={profile_version:"v1",extra:{},extraAccept:{}};
+function sha256(ascii){function rr(v,a){return(v>>>a)|(v<<(32-a));}var mp=Math.pow,mw=mp(2,32),res="",words=[],bl=ascii.length*8,hash=sha256.h=sha256.h||[],k=sha256.k=sha256.k||[],pc=k.length,ic={};for(var c=0;c<bl;c+=8){words[c>>5]|=(ascii.charCodeAt(c/8)&255)<<(24-c%32);}words[bl>>5]|=128<<(24-bl%32);words[((bl+64>>9)<<4)+15]=bl;for(c=0;c<words.length;c+=16){var a=hash[0],b=hash[1],cc=hash[2],d=hash[3],e=hash[4],f=hash[5],g=hash[6],h=hash[7];for(var i=0;i<64;i++){if(i<16){ic[i]=words[c+i];}else{var x=ic[i-15],s0=rr(x,7)^rr(x,18)^(x>>>3),y=ic[i-2],s1=rr(y,17)^rr(y,19)^(y>>>10);ic[i]=ic[i-16]+s0+ic[i-7]+s1|0;}var S1=rr(e,6)^rr(e,11)^rr(e,25),ch=(e&f)^(~e&g),t1=h+S1+ch+k[i]+ic[i]|0,S0=rr(a,2)^rr(a,13)^rr(a,22),mj=(a&b)^(a&cc)^(b&cc),t2=S0+mj|0;h=g;g=f;f=e;e=d+t1|0;d=cc;cc=b;b=a;a=t1+t2|0;}hash[0]=hash[0]+a|0;hash[1]=hash[1]+b|0;hash[2]=hash[2]+cc|0;hash[3]=hash[3]+d|0;hash[4]=hash[4]+e|0;hash[5]=hash[5]+f|0;hash[6]=hash[6]+g|0;hash[7]=hash[7]+h|0;}for(c=0;c<8;c++){for(i=3;i+1;i--){var hb=(hash[c]>>(i*8))&255;res+=((hb<16)?"0":"")+hb.toString(16);}}return res;}
+sha256.h=[1779033703,3144134277,1013904242,2773480762,1359893119,2600822924,528734635,1541459225];sha256.k=[1116352408,1899447441,3049323471,3921009573,961987163,1508970993,2453635748,2870763221,3624381080,310598401,607225278,1426881987,1925078388,2162078206,2614888103,3248222580,3835390401,4022224774,264347078,604807628,770255983,1249150122,1555081692,1996064986,2554220882,2821834349,2952996808,3210313671,3336571891,3584528711,113926993,338241895,666307205,773529912,1294757372,1396182291,1695183700,1986661051,2177026350,2456956037,2730485921,2820302411,3259730800,3345764771,3516065817,3600352804,4094571909,275423344,430227734,506948616,659060556,883997877,958139571,1322822218,1537002063,1747873779,1955562222,2024104815,2227730452,2361852424,2428436474,2756734187,3204031479,3329325298];
+function canon(o){return JSON.stringify(sortKeys(o));}
+function sortKeys(o){if(Array.isArray(o))return o.map(sortKeys);if(o&&typeof o==="object"){var r={};Object.keys(o).sort().forEach(function(k){r[k]=sortKeys(o[k]);});return r;}return o;}
+function go(n){for(var i=0;i<5;i++)document.getElementById("p"+i).classList.toggle("on",i===n);if(n===3)refreshNT();if(n===4)refresh();window.scrollTo(0,0);}
+function envText(){var e=document.getElementById("env").value;var m={phone:"You are in a phone app that does not honor CCF. Nothing here controls that app. This profile is a promise to yourself plus a portable record for providers that do honor it later. You are NOT safe disclosing NT content here, period.",desktop:"You are in a desktop app with files you own. You can hold a profile, watch logs, run a sidecar. Per-turn flags are possible with effort.",browser:"You are in a browser, closest to the wire. Per-turn NT toggle is possible here: flip it on for the taboo part, off after. Flag travels before content.",local:"You control local inference. NT can live here. Enforcement is yours, not theirs."};document.getElementById("envnote").innerHTML='<div class="warn">'+m[e]+"</div>";}
+document.getElementById("env").addEventListener("change",function(){envText();refresh();});
+envText();
+function wireLive(){
+document.getElementById("eps").addEventListener("input",function(){refreshNT();});
+document.getElementById("quant").addEventListener("change",refresh);
+document.getElementById("load0").addEventListener("change",function(e){loadFile(e.target.files[0]);});
+}
+function initMatrix(){var m=document.getElementById("matrix");CLASSES.forEach(function(c){var d=document.createElement("div");d.className="row";var l=document.createElement("label");l.innerHTML="<b>"+c[1]+"</b><br><span class='scen'>"+c[2]+"</span>";d.appendChild(l);var s=document.createElement("select");s.id="t_"+c[0];TIERS.forEach(function(t){var o=document.createElement("option");o.value=t;o.textContent=(TIERLBL[t]||t);s.appendChild(o);});s.value="NT";s.onchange=refresh;d.appendChild(s);m.appendChild(d);});}
+function eps(){return document.getElementById("eps").value.split("\n").map(function(s){return s.trim();}).filter(Boolean);}
+function ntStatus(){var e=eps();var tiers=[];CLASSES.forEach(function(c){var s=document.getElementById("t_"+c[0]);if(s&&s.value==="NT")tiers.push(c[0]);});if(!tiers.length)return{cls:"safe",t:"No NT picks. Nothing held."};if(!e.length)return{cls:"impossible",t:"IMPOSSIBLE, not held: you picked NT for ["+tiers.join(", ")+"] but list no local endpoints. Without local inference NT cannot get out because there is nowhere for never-leaves-hardware to go. Under safe and normal circumstances you cannot operate at NT yet. You may still choose it; nothing stops your hands in a text box. But do not mistake holding for broken."};return{cls:"donut",t:"DONUT HOLE: endpoints listed but unverified ["+e.join(", ")+"]. Loopback never leaves the box so it is local, but nothing enforces flags, so it is unenforced. Better than cloud, not the promise. The gap between wanting NT and having somewhere NT can live is where intimate content goes over an open wire because waiting feels like nothing. Hold here. Downgrade only with eyes open, explicitly, never silently."};}
+function refreshNT(){var s=ntStatus();var badge=s.cls==="safe"?'<span class="badge b-live">OK</span>':s.cls==="impossible"?'<span class="badge b-impossible">NT IMPOSSIBLE</span>':'<span class="badge b-donut">DONUT: UNVERIFIED</span>';document.getElementById("ntstate").innerHTML='<div class="'+(s.cls==="safe"?"safe":"warn")+'">'+badge+" "+s.t+"</div>";document.getElementById("ntblock").innerHTML=document.getElementById("ntstate").innerHTML;}
+function buildProfile(){var t={};CLASSES.forEach(function(c){var s=document.getElementById("t_"+c[0]);t[c[0]]=s?s.value:"NT";});var p={tiers:t,conversation_style:document.getElementById("quant").value,local_endpoints:eps(),environment:document.getElementById("env").value,profile_version:state.profile_version};Object.keys(state.extra).forEach(function(k){p[k]=state.extra[k];});if(state.extraAccept&&Object.keys(state.extraAccept).length)p.accept=state.extraAccept;return p;}
+function refresh(){var p=buildProfile();var h=sha256(unescape(encodeURIComponent(canon(p))));document.getElementById("out").textContent=canon(p)+"\n\nprofile_hash: "+h+"\nSave to Documents\\CCF\\profile.json";return{p:p,hash:h};}
+function doSave(){var parts=state.profile_version.match(/^v(\d+)$/);var n=parts?parseInt(parts[1],10)+1:1;state.profile_version="v"+n;var r=refresh();var blob=new Blob([canon(r.p)],{type:"application/json"});var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="profile.json";a.click();}
+function toCSV(p){var rows=["key,tier"];Object.keys(p.tiers||{}).sort().forEach(function(k){rows.push(k+","+p.tiers[k]);});rows.push("conversation_style,"+p.conversation_style);rows.push("environment,"+p.environment);rows.push("profile_version,"+p.profile_version);(p.local_endpoints||[]).forEach(function(e){rows.push("local_endpoint,"+e);});return rows.join("\n")+"\n";}
+function doSaveCSV(){var r=refresh();var blob=new Blob([toCSV(r.p)],{type:"text/csv"});var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="profile.csv";a.click();}
+function sqlQ(s){return "'"+String(s).replace(/'/g,"''")+"'";}
+function toSQL(p){var L=["-- CCF profile export "+p.profile_version,"-- canonical shape is profile.json; import this .sql into sqlite as you see fit.","CREATE TABLE IF NOT EXISTS tiers(class TEXT PRIMARY KEY, tier TEXT);","CREATE TABLE IF NOT EXISTS profile(key TEXT PRIMARY KEY, value TEXT);","CREATE TABLE IF NOT EXISTS local_endpoints(endpoint TEXT PRIMARY KEY);"];Object.keys(p.tiers||{}).sort().forEach(function(k){L.push("INSERT OR REPLACE INTO tiers(class,tier) VALUES("+sqlQ(k)+","+sqlQ(p.tiers[k])+");");});L.push("INSERT OR REPLACE INTO profile(key,value) VALUES('conversation_style',"+sqlQ(p.conversation_style)+");");L.push("INSERT OR REPLACE INTO profile(key,value) VALUES('environment',"+sqlQ(p.environment)+");");L.push("INSERT OR REPLACE INTO profile(key,value) VALUES('profile_version',"+sqlQ(p.profile_version)+");");(p.local_endpoints||[]).forEach(function(e){L.push("INSERT OR REPLACE INTO local_endpoints(endpoint) VALUES("+sqlQ(e)+");");});return L.join("\n")+"\n";}
+function doSaveSQL(){var r=refresh();var blob=new Blob([toSQL(r.p)],{type:"text/plain"});var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="profile.sql";a.click();}
+function doCopy(){var r=refresh();var txt=canon(r.p);if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt);}else{var ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");}catch(e){}document.body.removeChild(ta);alert("Copied "+txt.length+" chars (fallback).");}}
+function loadFile(f){if(!f)return;var r=new FileReader();r.onload=function(){try{var p=JSON.parse(r.result);var box=document.getElementById("unknowns");box.innerHTML="";var known={};CLASSES.forEach(function(c){known[c[0]]=1;if(p.tiers&&p.tiers[c[0]])document.getElementById("t_"+c[0]).value=p.tiers[c[0]];});if(p.local_endpoints)document.getElementById("eps").value=p.local_endpoints.join("\n");if(p.conversation_style)document.getElementById("quant").value=p.conversation_style;if(p.environment){document.getElementById("env").value=p.environment;envText();}if(p.profile_version)state.profile_version=p.profile_version;if(p.accept)state.extraAccept=p.accept;Object.keys(p.tiers||{}).forEach(function(k){if(!known[k]){var d=document.createElement("div");d.className="unknown";var q1=document.createElement("select");TIERS.forEach(function(t){var o=document.createElement("option");o.value=t;o.textContent=(TIERLBL[t]||t);if(t===p.tiers[k])o.selected=true;q1.appendChild(o);});q1.setAttribute("data-k",k);q1.addEventListener("change",function(){state.extra[this.getAttribute("data-k")]=this.value;refresh();});var q2=document.createElement("select");["hold","accept"].forEach(function(v){var o=document.createElement("option");o.value=v;o.textContent=v;q2.appendChild(o);});q2.setAttribute("data-k",k);if(state.extraAccept&&state.extraAccept[k])q2.value=state.extraAccept[k];q2.addEventListener("change",function(){state.extraAccept=state.extraAccept||{};state.extraAccept[this.getAttribute("data-k")]=this.value;refresh();});d.innerHTML="<b>Unknown: "+k+"</b> (tier "+p.tiers[k]+")<br>Q1 tier going forward: ";d.appendChild(q1);d.innerHTML+=" Q2 accept this use now: ";d.appendChild(q2);box.appendChild(d);state.extra[k]=p.tiers[k];}});refreshNT();refresh();}catch(err){alert("Not valid JSON: "+err);}};r.readAsText(f);}
+document.getElementById("load").addEventListener("change",function(e){loadFile(e.target.files[0]);go(4);});
+initMatrix();
+wireLive();
+</script>
+</body>
+</html>
